@@ -4,7 +4,7 @@ import { isValidEmail } from "@/utils/check-email";
 import axios from "axios";
 import { useState } from "react";
 import { TbMailForward } from "react-icons/tb";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 function ContactForm() {
   const [error, setError] = useState({ email: false, required: false });
@@ -35,19 +35,25 @@ function ContactForm() {
 
     try {
       setIsLoading(true);
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_APP_URL}/api/contact`,
-        userInput
+      
+      // Create mailto link with pre-filled content
+      const subject = encodeURIComponent(`Message from ${userInput.name} - Portfolio Contact`);
+      const body = encodeURIComponent(
+        `Name: ${userInput.name}\nEmail: ${userInput.email}\n\nMessage:\n${userInput.message}`
       );
-
-      toast.success("Message sent successfully!");
+      const mailtoLink = `mailto:zaitullah.jan@example.com?subject=${subject}&body=${body}`;
+      
+      // Open email client
+      window.open(mailtoLink, '_blank');
+      
+      alert("Email client opened! Please send your message.");
       setUserInput({
         name: "",
         email: "",
         message: "",
       });
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      alert("Failed to open email client. Please contact directly at zaitullah.jan@example.com");
     } finally {
       setIsLoading(false);
     };
