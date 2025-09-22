@@ -3,7 +3,7 @@
 import { skillsData } from "@/utils/data/skills";
 import { skillsImage } from "@/utils/skill-image";
 import Image from "next/image";
-// import Marquee from "react-fast-marquee";
+import Marquee from "react-fast-marquee";
 
 function Skills() {
   return (
@@ -27,7 +27,15 @@ function Skills() {
       </div>
 
       <div className="w-full my-12">
-        <div className="flex flex-wrap justify-center gap-4">
+        <Marquee
+          gradient={false}
+          speed={80}
+          pauseOnHover={true}
+          pauseOnClick={true}
+          delay={0}
+          play={true}
+          direction="left"
+        >
           {skillsData.map((skill, id) => (
             <div className="w-36 min-w-fit h-fit flex flex-col items-center justify-center transition-all duration-500 m-3 sm:m-5 rounded-lg group relative hover:scale-[1.15] cursor-pointer"
               key={id}>
@@ -54,7 +62,7 @@ function Skills() {
               </div>
             </div>
           ))}
-        </div>
+        </Marquee>
       </div>
     </div>
   );

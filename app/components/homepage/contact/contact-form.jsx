@@ -4,7 +4,7 @@ import { isValidEmail } from "@/utils/check-email";
 import axios from "axios";
 import { useState } from "react";
 import { TbMailForward } from "react-icons/tb";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function ContactForm() {
   const [error, setError] = useState({ email: false, required: false });
@@ -46,14 +46,14 @@ function ContactForm() {
       // Open email client
       window.open(mailtoLink, '_blank');
       
-      alert("Email client opened! Please send your message.");
+      toast.success("Email client opened! Please send your message.");
       setUserInput({
         name: "",
         email: "",
         message: "",
       });
     } catch (error) {
-      alert("Failed to open email client. Please contact directly at zaitullah.jan@example.com");
+      toast.error("Failed to open email client. Please contact directly at zaitullah.jan@example.com");
     } finally {
       setIsLoading(false);
     };
